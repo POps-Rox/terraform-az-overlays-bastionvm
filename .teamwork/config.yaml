@@ -1,0 +1,117 @@
+# .teamwork/config.yaml — Project orchestration settings
+#
+# This file configures how the orchestrator coordinates agents and workflows.
+
+# Project identity
+project:
+  name: "tf-az-overlays-bastionvm"
+  repo: "POps-Rox/tf-az-overlays-bastionvm"
+
+# Active roles — only these roles participate in workflows
+roles:
+  core:
+    - planner
+    - architect
+    - coder
+    - tester
+    - reviewer
+    - security-auditor
+    - documenter
+    - orchestrator
+  optional:
+    - devops
+    - dependency-manager
+    - refactorer
+
+# Workflow customizations
+workflows:
+  skip_steps:
+    documentation:
+      - security-auditor
+    spike:
+      - tester
+      - security-auditor
+
+  extra_gates: {}
+
+# Quality gate defaults (apply to all workflows unless overridden)
+quality_gates:
+  handoff_complete: true
+  tests_pass: true
+  lint_pass: true
+
+# Memory settings
+memory:
+  archive_threshold: 50
+  sync_to_memory_md: true
+
+# Model tier configuration
+model_tiers:
+  premium: "claude-sonnet-4"
+  standard: "claude-sonnet-4"
+  fast: "claude-haiku-4.5"
+
+# MCP server definitions
+mcp_servers:
+  github:
+    description: "GitHub repos, PRs, issues, CI workflows, Dependabot alerts"
+    url: "https://api.githubcopilot.com/mcp/"
+    roles: [planner, architect, coder, tester, reviewer, security-auditor, documenter, orchestrator]
+    env_vars: [GH_TOKEN]
+    install: "gh extension install github/gh-mcp"
+
+  context7:
+    description: "Real-time library documentation — prevents API hallucination"
+    url: "https://mcp.context7.com/mcp"
+    roles: [architect, coder, documenter]
+    env_vars: []
+    install: "npx -y @upstash/context7-mcp"
+
+  terraform:
+    description: "Terraform Registry lookups, provider docs, module search"
+    command: "npx -y terraform-mcp-server@latest"
+    roles: [devops, architect, coder]
+    env_vars: [TF_TOKEN]
+    install: "npx -y terraform-mcp-server@latest"
+
+  semgrep:
+    description: "SAST security scanning — 5000+ rules across 30+ languages"
+    command: "uvx semgrep-mcp"
+    roles: [security-auditor, reviewer, coder]
+    env_vars: [SEMGREP_APP_TOKEN]
+    install: "pip install semgrep-mcp"
+
+  tavily:
+    description: "Web search and content extraction for research tasks"
+    url: "https://mcp.tavily.com/mcp/"
+    roles: [planner, architect, security-auditor]
+    env_vars: [TAVILY_API_KEY]
+    install: "npx -y tavily-mcp"
+
+  osv:
+    description: "Open Source Vulnerability database — CVEs by package and version"
+    command: "uvx osv-mcp"
+    roles: [security-auditor, reviewer]
+    env_vars: []
+    install: "pip install osv-mcp"
+
+  mermaid:
+    description: "Architecture and flow diagram generation from text descriptions"
+    command: "npx -y mermaid-mcp"
+    roles: [architect, documenter]
+    env_vars: []
+    install: "npm install -g mermaid-mcp"
+
+  adr:
+    description: "Architecture Decision Record search, creation, and management"
+    command: "uvx teamwork-mcp-adr"
+    roles: [architect, orchestrator, coder]
+    env_vars: []
+    install: "pip install teamwork-mcp-adr"
+
+  complexity:
+    description: "Code complexity analysis — cyclomatic complexity for 30+ languages"
+    command: "uvx teamwork-mcp-complexity"
+    roles: [reviewer, tester, architect]
+    env_vars: []
+    install: "pip install teamwork-mcp-complexity"

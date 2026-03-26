@@ -1,13 +1,26 @@
-## Describe your changes
+## Task Issue
 
-## Issue number
+Closes #<!-- issue number -->
 
-#000
+## Description
 
-## Checklist before requesting a review
-- [ ] The pr title can be used to describe what this pr did in `CHANGELOG.md` file
-- [ ] I have executed pre-commit on my machine
-- [ ] I have passed pr-check on my machine
+<!-- What changes does this PR make and why? -->
 
-Thanks for your cooperation!
+## Checklist
 
+- [ ] Linked to task issue
+- [ ] Changes are minimal (only what the task requires)
+- [ ] Tests added/updated
+- [ ] All tests pass (`make test`)
+- [ ] Linting passes (`make lint`)
+- [ ] No secrets or credentials committed
+- [ ] Documentation updated (if applicable)
+- [ ] Follows project conventions (docs/conventions.md)
+
+## Reviewer Notes
+
+<!-- Anything reviewers should know or pay attention to -->
+
+## Security Considerations
+
+<!-- Any security implications of these changes? (new inputs, auth changes, dependency updates, etc.) -->
