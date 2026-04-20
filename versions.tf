@@ -17,9 +17,9 @@ terraform {
       source  = "hashicorp/tls"
       version = ">= 3.0"
     }
-    popsrox-utils = {
+    popsrox = {
       source  = "POps-Rox/azutils"
-      version = "~> 1.0.4"
+      version = "~> 1.0"
     }
     azurecaf = {
       source  = "aztfmod/azurecaf"
