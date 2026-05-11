@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.0.0] - 2025-05-11
+
+### Changed
+- **BREAKING:** Upgrade azurerm provider from ~> 3.116 to ~> 4.20
+- Bump required Terraform version from >= 1.9 to >= 1.10
+- Add azapi provider ~> 2.0 for future Azure API integration
+
+### Notes
+- This is a major version bump due to the azurerm provider major version change and Terraform CLI floor raise
+- No mechanical attribute renames were required for this module
+- All validation tests pass in root and examples
+
 ## [Unreleased](https://github.com/Azure/terraform-verified-module/tree/HEAD)
 
 **Merged pull requests:**
